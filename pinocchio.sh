@@ -27,12 +27,24 @@ To do system operations run the following pinocchio commands as root/sudo.\n
 
 
 if [[ $1 == "setup" ]]; then
+    echo "checking if the user is root"
     source check_root.sh
-    source preload.sh
+    if [[ -f preload.sh ]]; then
+        echo "loading the definitions in the preload"
+        source preload.sh
+    fi
+    echo "setting up the package manager"
     source set_package_manager.sh
+    echo "setting up the install packages function"
     source install_packages.sh
-    source personal.sh
+    echo "installing the prerequisites"
+    source install_prerequisites.sh
+    echo "installing the custom dependencies"
+    source custom.sh
+    echo "setting up users and groups"
     source set_users_groups.sh
+    echo "running puppet"
+    source run_puppet.sh
 else
     while getopts "hv" opt; do
         case $opt in

@@ -34,7 +34,7 @@ darwin="[Dd]arwin"
 os=$(uname)
 
 if [[ $os =~ $linux ]]; then
-    distribution=(cat /etc/*release)
+    distribution=$(cat /etc/*release)
 elif [[ $os =~ $darwin ]]; then
     distribution="osx"
 else

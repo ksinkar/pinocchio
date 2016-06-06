@@ -25,7 +25,7 @@ function install_packages() {
         nbsp=" "
         packages_list=""
         while read -r line; do
-            string=$string$nbsp$line
+            packages_list=$packages_list$nbsp$line
         done < $packages_file
         command $package_manager $packages_list
     else

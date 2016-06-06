@@ -21,29 +21,10 @@
 #####################################################################
 #####################################################################
 
-# running custom preinstall scripts
-preinstall="custom/pre_install/${distro}/"
+manifest_dir="custom/manifests"
+puppet_command="puppet apply"
 
-if [[ -d $preinstall ]]; then
-    for script in $(ls ${preinstall}/*.sh); do
-        source $script
-    done
+if [[ -d $manifest_dir ]]; then
+    command $puppet_command $manifest_dir --noop
 fi
 
-# installing custom packages
-packages_dir="custom/package_lists/${distro}/" 
-
-if [[ -d $packages_dir ]]; then
-    for packages_file in $(ls ${packages_dir}/*.txt); do
-        install_packages $packages_file
-    done
-fi
-
-# running custom postinstall scripts
-postinstall="custom/post_install/${distro}/"
-
-if [[ -d $postinstall ]]; then
-    for script in $(ls ${postinstall}/*.sh); do
-        source $script
-    done
-fi
