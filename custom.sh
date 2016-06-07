@@ -22,7 +22,7 @@
 #####################################################################
 
 # running custom preinstall scripts
-preinstall="custom/pre_install/${distro}/"
+preinstall="custom/scripts/pre_install/${distro}/"
 
 if [[ -d $preinstall ]]; then
     for script in $(ls ${preinstall}/*.sh); do
@@ -40,7 +40,7 @@ if [[ -d $packages_dir ]]; then
 fi
 
 # running custom postinstall scripts
-postinstall="custom/post_install/${distro}/"
+postinstall="custom/scripts/post_install/${distro}/"
 
 if [[ -d $postinstall ]]; then
     for script in $(ls ${postinstall}/*.sh); do
