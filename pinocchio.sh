@@ -2,7 +2,7 @@
 
 #####################################################################
 #####################################################################
-## Copyright(C) 2016 Koustubh Sinkar 
+## Copyright(C) 2017 Koustubh Sinkar 
 ##
 ## This file is part of Pinocchio
 ##
@@ -21,21 +21,23 @@
 #####################################################################
 #####################################################################
 
-usage="usage: ./pinocchio [-v] [-h]\n
+usage="usage: ./pinocchio [-v] [-h] [-c] [-l]\n
 To do system operations run the following pinocchio commands as root/sudo.\n
 \t setup \t\t setup a complete system from scratch"
 
-check_root=check_root.sh
-set_package_manager=set_package_manager.sh
-install_packages=install_packages.sh
-prerequisites=install_prerequisites.sh
-custom=custom.sh
-set_users_groups=set_users_groups.sh
-run_puppet=run_puppet.sh
+pinocchio_root=$PWD
+check_root="src/check_root.sh"
+set_package_manager="src/set_package_manager.sh"
+install_packages="src/install_packages.sh"
+install_prerequisites="src/install_prerequisites.sh"
+install_cfengine="src/install_cfengine.sh"
+custom="src/custom.sh"
+
+echo $PWD
 
 if [[ $1 == "setup" ]]; then
     echo "checking if the user is root"
-    source check_root.sh
+    source $check_root
     if [[ -f preload.sh ]]; then
         echo "loading the definitions in the preload"
         source preload.sh
@@ -46,12 +48,10 @@ if [[ $1 == "setup" ]]; then
     source $install_packages
     echo "installing the prerequisites"
     source $install_prerequisites
+    echo "installing CFEngine"
+    source $install_cfengine
     echo "installing the custom dependencies"
     source $custom
-    echo "setting up users and groups"
-    source $set_users_groups
-    echo "running puppet"
-    source $run_puppet
 elif [[ $1 == "install" ]]; then
     package_list_file=$2
     if [[ -f $package_list_file ]]; then
@@ -81,7 +81,7 @@ elif [[ $1 == "run" ]]; then
         exit 1
     fi
 else
-    while getopts "hv" opt; do
+    while getopts "hvcl" opt; do
         case $opt in
             h)
 	        echo -e $usage

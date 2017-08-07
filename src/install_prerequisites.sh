@@ -2,7 +2,7 @@
 
 #####################################################################
 #####################################################################
-## Copyright(C) 2012 Koustubh Sinkar 
+## Copyright(C) 2017 Koustubh Sinkar 
 ## 
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 #####################################################################
 
 
-prerequisites_file="package_lists/$distro/prerequisites.txt"
+prerequisites_file="${pinocchio_root}/src/package_lists/${distro}/prerequisites.txt"
+repo_import_dir="${pinocchio_root}/src/import_repo"
 
 install_packages $prerequisites_file
+source "${repo_import_dir}/${distro}.sh"

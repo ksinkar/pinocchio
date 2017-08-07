@@ -2,7 +2,7 @@
 
 #####################################################################
 #####################################################################
-## Copyright(C) 2016 Koustubh Sinkar 
+## Copyright(C) 2017 Koustubh Sinkar 
 ##
 ## This file is part of Pinocchio
 ##
@@ -22,7 +22,7 @@
 #####################################################################
 
 # running custom preinstall scripts
-preinstall="custom/scripts/pre_install/${distro}/"
+preinstall="${pinocchio_root}/custom/scripts/pre_install/${distro}/"
 
 if [[ -d $preinstall ]]; then
     for script in $(ls ${preinstall}/*.sh); do
@@ -31,7 +31,7 @@ if [[ -d $preinstall ]]; then
 fi
 
 # installing custom packages
-packages_dir="custom/package_lists/${distro}/" 
+packages_dir="${pinocchio_root}/custom/package_lists/${distro}/" 
 
 if [[ -d $packages_dir ]]; then
     for packages_file in $(ls ${packages_dir}/*.txt); do
@@ -40,10 +40,17 @@ if [[ -d $packages_dir ]]; then
 fi
 
 # running custom postinstall scripts
-postinstall="custom/scripts/post_install/${distro}/"
+postinstall="${pinocchio_root}/custom/scripts/post_install/${distro}/"
 
 if [[ -d $postinstall ]]; then
     for script in $(ls ${postinstall}/*.sh); do
         source $script
     done
+fi
+
+promises_dir="${pinocchio_root}/custom/promises"
+cfengine_services_dir="${cfengine_inputfiles}/services"
+
+if [[ -d $promises_dir ]]; then
+    cp --recursive --no-preserve=ownership $promises_dir $cfengine_services_dir
 fi

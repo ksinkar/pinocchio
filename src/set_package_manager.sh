@@ -2,7 +2,7 @@
 
 #####################################################################
 #####################################################################
-## Copyright(C) 2016 Koustubh Sinkar 
+## Copyright(C) 2017 Koustubh Sinkar 
 ##
 ## This file is part of Pinocchio
 ##
@@ -27,14 +27,22 @@ debian="[Dd]ebian"
 ubuntu="[Uu]buntu"
 fedora="[Ff]edora"
 redhat="[Rr]edhat"
-centos="[Cc]entos"
+suse="[Ss][Uu][Ss][Ee]"
+centos="[Cc]ent[Oo][sS]"
 archlinux="[Aa]rchlinux"
 darwin="[Dd]arwin"
 
-os=$(uname)
+os=$(uname -s)
+arch=$(uname -m)
 
 if [[ $os =~ $linux ]]; then
-    distribution=$(cat /etc/*release)
+    type -t lsb_release
+    does_lsb_release_exist=$?
+    if [[ $does_lsb_release_exist -eq 0 ]]; then
+        distribution=$(lsb_release --id)
+    else
+        distribution=$(cat "/etc/os-release" | head -n 1)
+    fi
 elif [[ $os =~ $darwin ]]; then
     distribution="osx"
 else
@@ -42,21 +50,28 @@ else
     exit
 fi
 
-yum="yum install -y"
+yum="yum install --assumeyes"
 dnf="dnf install --assumeyes"
+zypper="zypper -n install"
 apt="apt-get install --assume=yes"
 pac="pacman -S"
 
-if [[ $distribution =~ $redhat ]] || [[ $distribution =~ $centos ]] || [[ $distribution =~ $fedora ]]; then
+if [[ $distribution =~ $fedora ]]; then
     distro="redhat"
     package_manager=$dnf
+elif [[ $distribution =~ $redhat ]] || [[ $distribution =~ $centos ]]; then
+    distro="redhat"
+    package_manager=$yum
 elif [[ $distribution =~ $ubuntu ]] || [[ $distribution =~ $debian ]]; then
     distro="debian"
     package_manager=$apt
+elif [[ $distribution =~ $suse ]]; then
+    distro="suse"
+    package_manager=$zypper
 elif [[ $distribution =~ $archlinux ]]; then
     distro="arch"
     package_manager=$pac
 else
     echo -e "UNKNOWN DISTRIBUTION\n Exiting NOW!"    
-    exit
+    exit 1
 fi

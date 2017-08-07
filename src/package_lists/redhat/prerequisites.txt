@@ -1,0 +1,3 @@
+wget
+perl
+net-tools
