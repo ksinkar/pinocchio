@@ -1,0 +1,12 @@
+{
+    "centos": [
+        "epel-release"
+    ],
+    "fedora":[
+    ],
+    "debian":[
+    ],
+    "ubuntu":[
+        "build-essential"
+    ]
+}

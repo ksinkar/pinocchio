@@ -1,0 +1,20 @@
+bundle agent 01_installing_dependencies {
+  meta:
+      "tags" slist => { "autorun" };
+  vars:
+      "json_data" data => readjson("$(main.config_dir)/packages.json");
+      centos:: "dependencies" slist => getvalues("json_data[centos]");
+      fedora:: "dependencies" slist => getvalues("json_data[fedora]");
+      debian:: "dependencies" slist => getvalues("json_data[debian]");
+      ubuntu:: "dependencies" slist => getvalues("json_data[ubuntu]");
+  packages:
+      "$(dependencies)"
+        comment => "Installing dependencies",
+        policy => "present";
+  reports:
+    cfengine::
+    verbose_mode::
+      "Installing Dependencies from $(main.config_dir)/packages.json";
+    verbose_mode::
+      "Installing Dependencies from $(main.config_dir)/packages.json";
+}

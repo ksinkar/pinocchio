@@ -1,0 +1,21 @@
+bundle agent 00_copying_augments {
+  meta:
+      "tags" slist => { "autorun" };
+  vars:
+      "augments_sample" string => "$(main.config_dir)/def.json";
+      "final_path" string => "$(sys.inputdir)/def.json";
+  classes:
+      "augments_file_exists"
+        expression => fileexists("$(final_path)");
+  files:
+    !augments_file_exists::
+      "$(final_path)"
+        copy_from => local_cp("$(augments_sample)");
+  reports:
+    cfengine::
+      "Copying Augments getting called $(main.config_dir)";
+    augments_file_exists::
+      "Augments JSON exists at $(final_path)";
+    !augments_file_exists::
+      "Augments JSON does not exist at $(final_path). Sample at $(augments_sample)";
+}

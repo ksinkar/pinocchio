@@ -1,0 +1,34 @@
+###############################################################################
+#
+# bundle agent main
+#  - User/Site policy entry
+#
+###############################################################################
+
+body file control
+{
+        inputs => { @(main.autorun_files),
+                    @(main.custom_files)
+        };
+}
+
+bundle agent main
+# User Defined Service Catalogue
+{
+  vars:
+      "custom_files"    slist => { findfiles("$(this.promise_dirname)/custom/*.cf") };
+      "autorun_files"   slist => { findfiles("$(this.promise_dirname)/autorun/*.cf")};
+      "config_dir"      string => "$(this.promise_dirname)/config";
+      "autorun_bundles" slist => bundlesmatching(".*", "autorun");
+      "custom_bundles"  slist => bundlesmatching(".*", "custom");
+  methods:
+      # Activate your custom policies here
+      "$(autorun_bundles)"
+        usebundle => "$(autorun_bundles)";
+      "$(custom_bundles)"
+        usebundle => "$(custom_bundles)"; 
+      
+  reports:
+    verbose_mode::
+      "CFEngine services main.cf getting called";
+}

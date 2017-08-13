@@ -1,0 +1,8 @@
+{
+      "classes": {
+                   "cfengine_internal_verify_update_transfers": [ "any" ]
+      },
+      "vars": {
+          "trustkeysfrom" : []
+      }
+}

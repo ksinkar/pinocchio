@@ -23,7 +23,13 @@
 cfengine_repos_file="${pinocchio_root}/src/package_lists/${distro}/cfengine.txt"
 cfengine_masterfiles="/var/cfengine/masterfiles/*"
 cfengine_inputfiles="/var/cfengine/inputs/"
+cfengine_servicefiles="/var/cfengine/inputs/services/"
+promises="${pinocchio_root}/promises/*"
+custom_promises="${pinocchio_root}/custom/promises/*"
+cfengine_customfiles="${cfengine_servicefiles}/custom"
 
 install_packages $cfengine_repos_file
 
 cp --recursive $cfengine_masterfiles $cfengine_inputfiles
+cp --recursive $promises $cfengine_servicefiles
+cp --recursive $custom_promises $cfengine_customfiles
