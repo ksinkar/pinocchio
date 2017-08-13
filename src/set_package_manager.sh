@@ -57,19 +57,19 @@ apt="apt-get install --assume=yes"
 pac="pacman -S"
 
 if [[ $distribution =~ $fedora ]]; then
-    distro="redhat"
+    distroot="redhat"
     package_manager=$dnf
 elif [[ $distribution =~ $redhat ]] || [[ $distribution =~ $centos ]]; then
-    distro="redhat"
+    distroot="redhat"
     package_manager=$yum
 elif [[ $distribution =~ $ubuntu ]] || [[ $distribution =~ $debian ]]; then
-    distro="debian"
+    distroot="debian"
     package_manager=$apt
 elif [[ $distribution =~ $suse ]]; then
-    distro="suse"
+    distroot="suse"
     package_manager=$zypper
 elif [[ $distribution =~ $archlinux ]]; then
-    distro="arch"
+    distroot="arch"
     package_manager=$pac
 else
     echo -e "UNKNOWN DISTRIBUTION\n Exiting NOW!"    

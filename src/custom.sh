@@ -22,7 +22,7 @@
 #####################################################################
 
 # running custom preinstall scripts
-preinstall="${pinocchio_root}/custom/scripts/pre_install/${distro}/"
+preinstall="${pinocchio_root}/custom/scripts/pre_install/${distroot}/"
 
 if [[ -d $preinstall ]]; then
     for script in $(ls ${preinstall}/*.sh); do
@@ -31,7 +31,7 @@ if [[ -d $preinstall ]]; then
 fi
 
 # installing custom packages
-packages_dir="${pinocchio_root}/custom/package_lists/${distro}/" 
+packages_dir="${pinocchio_root}/custom/package_lists/${distroot}/" 
 
 if [[ -d $packages_dir ]]; then
     for packages_file in $(ls ${packages_dir}/*.txt); do
@@ -40,7 +40,7 @@ if [[ -d $packages_dir ]]; then
 fi
 
 # running custom postinstall scripts
-postinstall="${pinocchio_root}/custom/scripts/post_install/${distro}/"
+postinstall="${pinocchio_root}/custom/scripts/post_install/${distroot}/"
 
 if [[ -d $postinstall ]]; then
     for script in $(ls ${postinstall}/*.sh); do

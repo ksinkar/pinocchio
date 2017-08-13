@@ -45,14 +45,53 @@ Usage
   $ ./pinocchio.sh -v
   ```
 
-Package List Files
-------------------
-A package list file is simply a newline separated list of package
-names with the suffix .txt in its filename.  An example of a package
-list can be found in the package_lists directory.
+CFEngine Promises
+-----------------
+Pinocchio assumes you are using
+the [MPF (Masterfiles Policy Framework)](https://docs.cfengine.com/docs/master/reference-masterfiles-policy-framework.html) distributed along with the
+community edition. The default promises provided here are the ones
+that are going to be most widely used. All of the promises listed in
+the [promises](./promises) directory are generic promises which take their
+instructions for JSON configuration files placed in the [config](./config)
+folder. All `*.json.example` files are samples provided which can be
+copied to their `*.json` filename and modified according to your
+specific requirements.
 
-Running Custom Scripts
-----------------------
+All these default promises will be copied into the
+`/var/cfengine/inputs/services`.
+
+
+Custom Directory Structure
+--------------------------
+You have to create a directory called /custom in the main directory
+which should have the following directory structure
+
+/custom
+├── package_lists
+├── post_install
+├── pre_install
+└── promises
+
+### Package Lists Files
+
+A package list file is simply a newline separated list of package
+names with the suffix .txt in its filename. The name of the file
+should be the name of the distroot (distribution root) whose packages
+you are going to install. Currently defined distroots are:
+1. redhat
+2. debian
+3. suse
+4. arch
+
+This is a redundant functionality and should only be used if you want
+any packages to be installed before CFEngine installs packages.
+
+### Post Install and Pre Install scripts
+
+Pre-Install scripts are run before Pinocchio installs CFEngine and its
+dependencies. Post-Install scripts are run after Pinocchio has
+finished installing CFEngine and its dependencies.
+
 Custom scripts have to be bash scripts. Pinocchio does not install any
 other programming language during setup, unless you have injected
 custom scripts to do that. Having said that, Pinocchio does provide a
@@ -66,10 +105,7 @@ script is as follows:
 Pinocchio also checks for root privileges and sets the package_manager
 based on your distribution.
 
-CFEngine Promises
------------------
-Pinocchio assumes you are using
-the [MPF (Masterfiles Policy Framework)](https://docs.cfengine.com/docs/master/reference-masterfiles-policy-framework.html) distributed along with the
-community edition. All your custom promises will be copied into the
+### Promises
+All  custom promises will be copied into the
 `services` directory of the cfengine `inputs` directory from the
 `custom/promises` directory of this repository.

@@ -20,7 +20,7 @@
 #####################################################################
 
 
-cfengine_repos_file="${pinocchio_root}/src/package_lists/${distro}/cfengine.txt"
+cfengine_repos_file="${pinocchio_root}/src/package_lists/${distroot}/cfengine.txt"
 cfengine_masterfiles="/var/cfengine/masterfiles/*"
 cfengine_inputfiles="/var/cfengine/inputs/"
 cfengine_servicefiles="/var/cfengine/inputs/services/"
