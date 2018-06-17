@@ -1,0 +1,8 @@
+{
+    "groups": {
+        "firstuser": {
+            "group_id": "1000",
+            "system": false
+        }   
+    }
+}

@@ -1,0 +1,18 @@
+body file control {
+      namespace => "pinocchio";
+}
+
+bundle agent 03_users {
+  meta:
+      "tags" slist => { "autorun" };
+  vars:
+      "json_data" data => readjson("$(main.config_dir)/users.json");
+      "users" slist => getvalues("json_data[users]");
+  users:
+      "$(users)";
+  reports:
+    cfengine::
+      "Adding users from $(main.config_dir)/users.json";
+    verbose_mode::
+      "Adding users from $(main.config_dir)/users.json";
+}

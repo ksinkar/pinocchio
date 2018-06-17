@@ -1,3 +1,7 @@
+body file control {
+      namespace => "pinocchio";
+}
+
 bundle agent 01_installing_dependencies {
   meta:
       "tags" slist => { "autorun" };
@@ -13,7 +17,6 @@ bundle agent 01_installing_dependencies {
         policy => "present";
   reports:
     cfengine::
-    verbose_mode::
       "Installing Dependencies from $(main.config_dir)/packages.json";
     verbose_mode::
       "Installing Dependencies from $(main.config_dir)/packages.json";

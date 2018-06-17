@@ -33,3 +33,6 @@ install_packages $cfengine_repos_file
 cp --recursive $cfengine_masterfiles $cfengine_inputfiles
 cp --recursive $promises $cfengine_servicefiles
 cp --recursive $custom_promises $cfengine_customfiles
+
+systemctl enable cfengine3
+systemctl start cfengine3

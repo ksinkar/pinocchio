@@ -4,7 +4,6 @@
 VAGRANT_API_VERSION = 2
 RAM = 1024
 
-
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -16,16 +15,20 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.define "centos", :primary => true do |centos|
-    centos.vm.box = "centos/7"
+  config.vm.define 'centos', primary: true do |centos|
+    centos.vm.box = 'centos/7'
   end
 
-  config.vm.define "debian", :autostart => false do |debian|
-    debian.vm.box =  "debian/jessie64"
+  config.vm.define 'debian', autostart: false do |debian|
+    debian.vm.box = 'debian/jessie64'
   end
 
-  config.vm.define "ubuntu", :autostart => false do |ubuntu| 
-    ubuntu.vm.box = "ubuntu/trusty64"
+  config.vm.define 'ubuntu', autostart: false do |ubuntu|
+    ubuntu.vm.box = 'ubuntu/trusty64'
+  end
+
+  config.vm.define 'fedora', autostart: false do |fedora|
+    fedora.vm.box = 'fedora/28-cloud-base'
   end
 
   # Disable automatic box update checking. If you disable this, then
@@ -53,31 +56,31 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder 'promises/',
                           '/var/cfengine/inputs/services/',
-                          :type  => 'rsync',
-                          :owner => 'root',
-                          :group => 'root',
-                          :mount_options => ['dmode=755,fmode=600']
+                          type:  'rsync',
+                          owner: 'root',
+                          group: 'root',
+                          mount_options: ['dmode=755,fmode=600']
 
   config.vm.synced_folder 'custom/promises/',
                           '/var/cfengine/inputs/services/custom/',
-                          :type  => 'rsync',
-                          :owner => 'root',
-                          :group => 'root',
-                          :mount_options => ['dmode=755,fmode=600']
-  
+                          type:  'rsync',
+                          owner: 'root',
+                          group: 'root',
+                          mount_options: ['dmode=755,fmode=600']
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
 
-  config.vm.provider "virtualbox" do |vb|
+  config.vm.provider 'virtualbox' do |vb|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = false
-    
+
     # Customize the amount of memory on the VM:
     vb.memory = RAM
   end
 
-  config.vm.provider "libvirt" do |lv|
+  config.vm.provider 'libvirt' do |lv|
     lv.memory = RAM
   end
   # View the documentation for the provider you are using for more
@@ -94,7 +97,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
 
-  config.vm.provision "shell", :inline => <<-SHELL
+  config.vm.provision 'shell', inline: <<-SHELL
     cd /vagrant
     sudo ./pinocchio.sh setup
   SHELL

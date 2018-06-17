@@ -1,3 +1,7 @@
+body file control {
+        namespace => "pinocchio";
+}
+
 bundle agent 00_copying_augments {
   meta:
       "tags" slist => { "autorun" };

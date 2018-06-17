@@ -1,0 +1,14 @@
+{
+    "users": {
+        "firstuser": {
+            "user_id": 1000,
+            "login_group": "firstuser",
+            "home_dir": "/home/firstuser",
+            "system": false,
+            "groups": [
+                "wheel",
+                "dialout"
+            ]
+        }
+    }
+}

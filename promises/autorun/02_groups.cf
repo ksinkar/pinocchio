@@ -1,0 +1,11 @@
+body file control {
+      namespace => "pinocchio";
+}
+
+bundle agent 02_groups {
+  meta:
+      "tags" slist => { "autorun" };
+  vars:
+      "json_data" data => readjson("$(main.config_dir)/groups.json");
+      "groups" slist => getvalues("json_data[groups]");      
+}
